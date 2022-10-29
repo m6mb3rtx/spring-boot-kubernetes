@@ -19,3 +19,12 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'laboratorio-final-diplomado'
+    organization: 'm6mb3rtx'
+    projectKey: 'lab_final'
+    projectName: 'spring-boot-kubernetes'
+
+- task: SonarCloudAnalyze@1
