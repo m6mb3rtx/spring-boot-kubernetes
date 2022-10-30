@@ -12,9 +12,9 @@ steps:
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'laboratorio-final-diplomado'
-    organization: 'm6mb3rtx_spring-boot-kubernetes'
+    organization: 'm6mb3rtx'
     scannerMode: 'Other'
-    projectKey: 'spring-boot-kubernetes'
+    projectKey: 'm6mb3rtx_spring-boot-kubernetes'
     projectName: 'spring-boot-kubernetes'
 
 
