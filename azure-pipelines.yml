@@ -32,7 +32,8 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: true
     sqMavenPluginVersionChoice: 'latest'
-    codeCoverageToolOption: 'JaCoCo'
+#    codeCoverageToolOption: 'JaCoCo'
+    codeCoverageToolOption: 'Cobertura'
     testResultsFiles: '**/TEST-*.xml'
     goals: 'verify'
 
@@ -43,3 +44,15 @@ steps:
   displayName: 'Publish results on build summary'
   inputs:
     pollingTimeoutSec: '300'
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    codeCoverageToolOption: 'Cobertura'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: true
+    sqMavenPluginVersionChoice: 'latest'
