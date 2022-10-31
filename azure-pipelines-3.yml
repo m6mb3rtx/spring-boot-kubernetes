@@ -7,8 +7,8 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-- stage: S.A.S.T.
-  displayName: S.A.S.T.
+- stage: SAST
+  displayName: SAST
   jobs:
   - job: Job
     steps:
