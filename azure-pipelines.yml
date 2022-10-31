@@ -15,7 +15,6 @@ steps:
     organization: 'm6mb3rtx'
     projectKey: 'm6mb3rtx_spring-boot-kubernetes'
     projectName: 'spring-boot-kubernetes'
-    scannerMode: 'Other'  
 
 - task: Maven@4
   displayName: 'Execute Maven goal'
@@ -35,8 +34,8 @@ steps:
     codeCoverageToolOption: 'JaCoCo'
 #    codeCoverageToolOption: 'Cobertura'
     testResultsFiles: '**/TEST-*.xml'
-#    goals: 'verify'
-    goals: 'clean verify sonar:sonar'
+    goals: 'verify'
+#    goals: 'clean verify sonar:sonar'
 
 
 # Uncomment the next task to wait until SonarCloud processing has
