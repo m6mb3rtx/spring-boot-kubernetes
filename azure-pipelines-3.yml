@@ -40,8 +40,8 @@ stages:
         testResultsFiles: '**/TEST-*.xml'
         goals: 'verify'
     #    goals: 'clean verify sonar:sonar'
-    - task: sonarcloud-buildbreaker@2
+    - task: SonarCloudAnalyze@1
+    - task: SonarCloudPublish@1
+      displayName: 'Publish results on build summary'
       inputs:
-        SonarCloud: 'sonarlaboratorio-final-diplomado'
-        organization: 'm6mb3rtx'
-    
+        pollingTimeoutSec: '300'
