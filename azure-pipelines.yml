@@ -32,7 +32,7 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: true
     sqMavenPluginVersionChoice: 'latest'
-#    codeCoverageToolOption: 'JaCoCo'
+    codeCoverageToolOption: 'JaCoCo'
 #    codeCoverageToolOption: 'Cobertura'
     testResultsFiles: '**/TEST-*.xml'
     goals: 'verify'
