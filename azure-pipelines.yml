@@ -33,7 +33,7 @@ steps:
     sonarQubeRunAnalysis: true
     sqMavenPluginVersionChoice: 'latest'
 #    codeCoverageToolOption: 'JaCoCo'
-    codeCoverageToolOption: 'Cobertura'
+#    codeCoverageToolOption: 'Cobertura'
     testResultsFiles: '**/TEST-*.xml'
     goals: 'verify'
 
