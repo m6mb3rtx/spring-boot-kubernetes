@@ -1,0 +1,82 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'laboratorio-final-diplomado'
+    organization: 'm6mb3rtx'
+    projectKey: 'm6mb3rtx_spring-boot-kubernetes'
+    projectName: 'spring-boot-kubernetes'
+
+- task: Maven@4
+  displayName: 'Execute Maven goal'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    options: '-Dmaven.test.failure.ignore=true'
+    mavenOptions: '-Xmx3072m'
+    mavenVersionOption: 'Default'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: true
+    sqMavenPluginVersionChoice: 'latest'
+    codeCoverageToolOption: 'JaCoCo'
+#    codeCoverageToolOption: 'Cobertura'
+    testResultsFiles: '**/TEST-*.xml'
+    goals: 'verify'
+#    goals: 'clean verify sonar:sonar'
+
+
+# Uncomment the next task to wait until SonarCloud processing has
+# finished and to publish the result on the Pipeline build summary
+#- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  displayName: 'Publish results on build summary'
+  inputs:
+    pollingTimeoutSec: '300'
+
+
+
+- task: dependency-check-build-task@6
+  inputs:
+    projectName: 'spring-boot-kubernetes'
+#   scanPath: '$(Build.SourcesDirectory)/build/libs'
+    scanPath: '$(Build.SourcesDirectory)'
+    format: 'HTML'
+
+
+
+- task: DockerInstaller@0
+  inputs:
+    dockerVersion: '17.09.0-ce'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Docker'
+    command: 'login'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Docker'
+    repository: m6mb3rtx/spring-boot-kubernetes
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+    tags: 'latest'
+    
+- script: |
+    sudo apt-get install -y rpm
+    wget https://github.com/aquasecurity/trivy/releases/download/v0.27.1/trivy_0.27.1_Linux-64bit.deb
+    sudo dpkg -i trivy_0.27.1_Linux-64bit.deb
+    trivy image m6mb3rtx/spring-boot-kubernetes:latest
+  displayName: Image Scan
