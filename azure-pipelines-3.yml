@@ -45,3 +45,31 @@ stages:
       displayName: 'Publish results on build summary'
       inputs:
         pollingTimeoutSec: '300'
+
+- stage: SCA
+  displayName: SCA
+  jobs:
+  - job: Job
+    steps:
+
+    - task: dependency-check-build-task@6
+      inputs:
+        projectName: 'spring-boot-kubernetes'
+        scanPath: '$(Build.SourcesDirectory)/target'
+        format: 'XML'
+        reportsDirectory: 'Reportes'        
+    - script: |
+       
+        echo "se encuentra en $(Build.SourcesDirectory)/Reportes/dependencyCheckReport.xml"       
+        existe=$(grep 'confidence="HIGH' $(Build.SourcesDirectory)/Reportes/dependency-check-report.xml | tr '<>' '\n'  | grep confidence | grep  'confidence="HIGH' | grep ^evidence | wc -l)          
+        if [ $existe -gt 0 ];
+        then 
+          echo "Se detectan vulnerabilidades Altas"            
+          #exit 1;
+        else:
+          echo "Bien!, no detectan vulnerabilidades"
+        fi;
+      
+
+
+
