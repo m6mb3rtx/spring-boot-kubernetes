@@ -45,3 +45,12 @@ steps:
   displayName: 'Publish results on build summary'
   inputs:
     pollingTimeoutSec: '300'
+
+
+
+- task: dependency-check-build-task@6
+  inputs:
+    projectName: 'spring-boot-kubernetes'
+    scanPath: '$(Build.SourcesDirectory)/build/libs'
+    format: 'HTML'
+
