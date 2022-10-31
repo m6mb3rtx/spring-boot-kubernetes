@@ -35,7 +35,8 @@ steps:
     codeCoverageToolOption: 'JaCoCo'
 #    codeCoverageToolOption: 'Cobertura'
     testResultsFiles: '**/TEST-*.xml'
-    goals: 'verify'
+#    goals: 'verify'
+    goals: 'clean verify sonar:sonar'
 
 
 # Uncomment the next task to wait until SonarCloud processing has
