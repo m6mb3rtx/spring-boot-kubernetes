@@ -40,6 +40,7 @@ steps:
 
 # Uncomment the next task to wait until SonarCloud processing has
 # finished and to publish the result on the Pipeline build summary
+- task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
   displayName: 'Publish results on build summary'
   inputs:
