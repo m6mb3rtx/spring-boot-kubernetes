@@ -1,0 +1,42 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: S.A.S.T.
+  displayName: S.A.S.T.
+  jobs:
+  - job: Job
+    steps:
+
+    - task: SonarCloudPrepare@1
+      inputs:
+        SonarCloud: 'laboratorio-final-diplomado'
+        organization: 'm6mb3rtx'
+        projectKey: 'm6mb3rtx_spring-boot-kubernetes'
+        projectName: 'spring-boot-kubernetes'
+
+    - task: Maven@4
+      displayName: 'Execute Maven goal'
+      inputs:
+        mavenPomFile: 'pom.xml'
+        options: '-Dmaven.test.failure.ignore=true'
+        mavenOptions: '-Xmx3072m'
+        mavenVersionOption: 'Default'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.11'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+        sqMavenPluginVersionChoice: 'latest'
+        codeCoverageToolOption: 'JaCoCo'
+    #    codeCoverageToolOption: 'Cobertura'
+        testResultsFiles: '**/TEST-*.xml'
+        goals: 'verify'
+    #    goals: 'clean verify sonar:sonar'
