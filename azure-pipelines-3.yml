@@ -81,8 +81,8 @@ stages:
         reportsDirectory: 'Reportes'        
     - script: |
        
-        echo "se encuentra en $(Build.SourcesDirectory)/Reportes/dependencyCheckReport.html"       
-        errores=$(grep '">HIGH<' dependency-check-report\ \(1\).html  | tr '<>' '\n' | grep HIGH | wc -l)          
+        echo "Ubicacion de reporte $(Build.SourcesDirectory)/Reportes/dependencyCheckReport.html"       
+        errores=$(grep '">HIGH<' $(Build.SourcesDirectory)/Reportes/dependency-check-report.html  | tr '<>' '\n' | grep HIGH | wc -l)          
         if [ $errores -gt 0 ];
         then 
           echo "DETECTADA VULNERABILIDAD ALTA"
