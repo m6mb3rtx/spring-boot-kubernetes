@@ -77,18 +77,17 @@ stages:
       inputs:
         projectName: 'spring-boot-kubernetes'
         scanPath: '$(Build.SourcesDirectory)/target'
-        format: 'XML'
+        format: 'HTML'
         reportsDirectory: 'Reportes'        
     - script: |
        
-        echo "se encuentra en $(Build.SourcesDirectory)/Reportes/dependencyCheckReport.xml"       
-        existe=$(grep 'confidence="HIGH' $(Build.SourcesDirectory)/Reportes/dependency-check-report.xml | tr '<>' '\n'  | grep confidence | grep  'confidence="HIGH' | grep ^evidence | wc -l)          
-        if [ $existe -gt 0 ];
+        echo "se encuentra en $(Build.SourcesDirectory)/Reportes/dependencyCheckReport.html"       
+        errores=$(grep '">HIGH<' dependency-check-report\ \(1\).html  | tr '<>' '\n' | grep HIGH | wc -l)          
+        if [ $errores -gt 0 ];
         then 
-          echo "Se detectan vulnerabilidades Altas"            
-          #exit 1;
+          echo "DETECTADA VULNERABILIDAD ALTA"
         else:
-          echo "Bien!, no detectan vulnerabilidades"
+          echo "SIN VULNERABILIDADES ALTAS"
         fi;
       
 
