@@ -88,8 +88,8 @@ stages:
           echo "DETECTADA VULNERABILIDAD ALTA"
         fi;
       
-- stage: Container Security
-  displayName: Container Security
+- stage: ContainerSecurity
+  displayName: ContainerSecurity
   jobs:
   - job: Job
     steps:
