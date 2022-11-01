@@ -86,8 +86,6 @@ stages:
         if [ $errores -gt 0 ];
         then 
           echo "DETECTADA VULNERABILIDAD ALTA"
-        else:
-          echo "SIN VULNERABILIDADES ALTAS"
         fi;
       
 
